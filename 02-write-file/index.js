@@ -2,7 +2,17 @@ const { stdin, stdout, exit } = process;
 const path = require("path");
 const fs = require("fs");
 
+// check file existing, when it's now, create file
+try {
+  fs.readFile(path.resolve(__dirname, "text.txt"), "utf-8");
+} catch (e) {
+  fs.writeFile(path.resolve(__dirname, "text.txt"), "", err => {
+    if (err) console.error(err.message);
+  });
+}
+
 stdout.write("write your text below\n");
+
 stdin.on("data", data => {
 
   if (data.toString("utf-8").slice(0, 4) === "exit") {
